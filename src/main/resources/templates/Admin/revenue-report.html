@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin eduBook</title>
+    <th:block th:replace="layout_admin::link-css-admin"></th:block>
+</head>
+<body>
+<th:block th:replace="layout_admin::header-admin"></th:block>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+<!--            <li class="active">Báo cáo doanh thu</li>-->
+            <li class="active">Báo cáo số tiền quyên góp</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+<!--            <h1 class="page-header">Báo cáo doanh thu</h1>-->
+            <h1 class="page-header">Báo cáo số tiền quyên góp</h1>
+        </div>
+        <div class="col-lg-12">
+            <form th:action="@{/order/report}" method="post" class="form-inline">
+                <div class="form-group">
+                    <label for="fromDate">Từ ngày:</label>
+                    <input type="date" id="fromDate" name="fromDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="toDate">Đến ngày:</label>
+                    <input type="date" id="toDate" name="toDate" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Xem báo cáo</button>
+            </form>
+
+        </div>
+    </div><!--/.row-->
+
+    <div class="row" th:if="${totalRevenue != null}">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+<!--                <div class="panel-heading">Kết quả báo cáo doanh thu</div>-->
+                <div class="panel-heading">Kết quả báo cáo số tiền quyên góp</div>
+                <div class="panel-body">
+<!--                    <p>Doanh thu từ ngày <strong th:text="${fromDate}"></strong> đến ngày <strong th:text="${toDate}"></strong>: <strong th:text="${totalRevenue}"></strong></p>-->
+                    <p>Số tiền quyên góp từ ngày <strong th:text="${fromDate}"></strong> đến ngày <strong th:text="${toDate}"></strong>: <strong th:text="${totalRevenue}"></strong></p>
+                </div>
+            </div>
+        </div>
+    </div><!--/.row-->
+
+    <div class="row" th:if="${orders != null}">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+<!--                <div class="panel-heading">Danh sách hóa đơn</div>-->
+                <div class="panel-heading">Danh sách quyên góp</div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+<!--                            <th>Mã đơn hàng</th>-->
+                            <th>Mã quyên góp</th>
+<!--                            <th>Khách hàng</th>-->
+                            <th>Người quyên góp</th>
+<!--                            <th>Ngày đặt hàng</th>-->
+                            <th>Ngày quyên góp</th>
+<!--                            <th>Địa chỉ giao hàng</th>-->
+                            <th>Khu vực quyên góp</th>
+<!--                            <th>Tổng tiền</th>-->
+                            <th>Số tiền quyên góp</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td th:text="${order.id}"></td>
+                            <td th:text="${order.customerName}"></td>
+                            <td th:text="${#dates.format(order.orderDate, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${order.shippingAddress}"></td>
+                            <td th:text="${order.totalPrice}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div><!--/.row-->
+
+</div>
+
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script>
+    $(document).ready(function() {
+        // Your JavaScript code here
+    });
+</script>
+</body>
+</html>

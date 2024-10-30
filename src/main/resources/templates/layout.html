@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - EduBook</title>
+    <script th:fragment="link-css-customer"  src="/Customer/js/jquery-3.3.1.js"></script>
+    <script th:fragment="link-css-customer" src="/Customer/js/bootstrap.min.js"></script>
+    <link th:fragment="link-css-customer" rel="stylesheet" href="/Customer/css/bootstrap.min.css">
+    <link th:fragment="link-css-customer" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+    <link th:fragment="link-css-customer" rel="stylesheet" href="/Customer/fonts/fontawesome/css/all.min.css">
+    <link th:fragment="link-css-customer" href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap" rel="stylesheet">
+    <link th:fragment="link-css-customer" rel="stylesheet" href="/Customer/css/style.css">
+    <link th:fragment="link-css-customer" rel="stylesheet" href="/Customer/css/home.css">
+
+</head>
+<body>
+<div class="app">
+    <header id="header" th:fragment="header-customer">
+        <!-- header top -->
+        <div class="header__top">
+            <div class="container">
+                <section class="row flex">
+                    <div class="col-lg-5 col-md-0 col-sm-0 heade__top-left">
+                        <span> Quỹ Nâng Bước Tuổi Thơ</span>
+                    </div>
+
+                    <nav class="col-lg-7 col-md-0 col-sm-0 header__top-right">
+                        <ul class="header__top-list">
+                            <li class="header__top-item">
+                                <a href="/contact" class="header__top-link">Hỏi đáp</a>
+                            </li>
+<!--                            <li class="header__top-item">-->
+<!--                                <a href="#" class="header__top-link">Hướng dẫn</a>-->
+<!--                            </li>-->
+                            <li class="header__top-item" sec:authorize="isAuthenticated()">
+                                <div class="dropdown">
+                                    <a href="" class="header__top-link" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="Customer/images/img/5.png" alt="User Logo" class="user-logo">
+                                        <span th:text="${#authentication.name}"></span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                        <form th:action="@{/logout}" method="post">
+                                            <button class="dropdown-item" type="submit">Đăng xuất</button>
+                                        </form>
+                                        <a class="dropdown-item" href="/cart/history">Lịch sử quyên góp </a>
+                                        <a class="dropdown-item" href="/">Lịch sử duyệt web</a>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li class="header__top-item" sec:authorize="!isAuthenticated()">
+                                <a href="/user/login" class="btn btn-outline-primary">Đăng nhập</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </section>
+            </div>
+        </div>
+        <!--end header top -->
+
+        <!-- header bottom -->
+        <div class="header__bottom">
+            <div class="container">
+                <section class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-12 header__logo">
+                        <h1 class="header__heading">
+                            <a href="/" class="header__logo-link">
+                                <img src="Customer/images1/kkkkk.jpg" alt="Logo" class="header__logo-img">
+                            </a>
+                        </h1>
+                    </div>
+
+                    <div class="col-lg-6 col-md-7 col-sm-0 header__search">
+                        <select name="" id="" class="header__search-select">
+                            <option value="0">All</option>
+                            <option value="1">Các Gói Tài Trợ Theo Bệnh</option>
+                            <option value="2">Chiến Dịch Gây Quỹ Từ Thiện Cánh Diều Hy Vọng 2024</option>
+                            <option value="3">Đêm Hòa Nhạc Phép Mầu Tình Yêu_Nghệ Sỹ Trần Mạnh Tuấn</option>
+                        </select>
+                        <input type="text" class="header__search-input" placeholder="Tìm kiếm tại đây...">
+                        <button class="header__search-btn">
+                            <div class="header__search-icon-wrap">
+                                <i class="fas fa-search header__search-icon"></i>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="col-lg-2 col-md-0 col-sm-0 header__call">
+                        <div class="header__call-icon-wrap">
+                            <i class="fas fa-phone-alt header__call-icon"></i>
+                        </div>
+                        <div class="header__call-info">
+                            <div class="header__call-text">Gọi điện tư vấn</div>
+                            <div class="header__call-number">039.882.3237</div>
+                        </div>
+                    </div>
+
+                    <a href="/cart" class="col-lg-1 col-md-1 col-sm-0 header__cart">
+                        <div class="header__cart-icon-wrap">
+                            <span class="header__notice">4</span>
+                            <i class="fas fa-shopping-cart header__nav-cart-icon"></i>
+                        </div>
+                    </a>
+                </section>
+            </div>
+        </div>
+        <!--end header bottom -->
+
+        <!-- header nav -->
+        <div class="header__nav">
+            <div class="container">
+                <section class="row">
+                    <div class="header__nav-menu-wrap col-lg-3 col-md-0 col-sm-0">
+                        <i class="fas fa-bars header__nav-menu-icon"></i>
+                        <div class="header__nav-menu-title">Danh mục chiến dịch  </div>
+                    </div>
+
+                    <div class="header__nav col-lg-9 col-md-0 col-sm-0">
+                        <ul class="header__nav-list">
+                            <li class="header__nav-item">
+                                <a href="/" class="header__nav-link">Trang chủ</a>
+                            </li>
+                            <li class="header__nav-item">
+                                <a href="/category" class="header__nav-link">Danh mục chiến dịch </a>
+                            </li>
+                            <li class="header__nav-item">
+                                <a href="/product" class="header__nav-link"> Chiến dịch  </a>
+                            </li>
+                            <li class="header__nav-item">
+                                <a href="/post" class="header__nav-link">Bài viết</a>
+                            </li>
+                            <li class="header__nav-item">
+                                <a href="#" class="header__nav-link">Tuyển cộng tình nguyện vien </a>
+                            </li>
+                            <li class="header__nav-item">
+                                <a href="/contact" class="header__nav-link">Liên hệ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </header>
+    <!--end header nav -->
+
+    <div th:insert="~{::${content}}"></div>
+
+    <!-- footer -->
+    <footer th:fragment="footer-customer">
+        <section class="footer__top">
+            <div class="container">
+                <div class="row">
+                    <article class="footer__top-intro col-lg-5 col-md-4 col-sm-6">
+                        <h4 class="footer__top-intro-heading">Về chúng tôi</h4>
+                        <div class="footer__top-intro-content">
+                            Thắp sáng bởi ngọn lửa của tình thương vô điều kiện, Quỹ Nâng Bước Tuổi Thơ ấp ủ khát vọng cùng sứ mệnh mang tới cơ thể lành lặn và tương lai tốt đẹp nhất cho những trẻ em khiếm khuyết kém may mắn trên mọi miền đất Việt. <br> <br>
+                            Điện thoại: 0352 860 701 <br>
+                            Email: duoilo100@gmail.com <br>
+                            Zalo:  039.882.3232 <br>
+                        </div>
+                    </article>
+
+                    <article class="footer__top-policy col-lg-3 col-md-4 col-sm-6">
+<!--                        <h4 class="footer__top-policy-heading">Chính sách tình nguyệns  </h4>-->
+                        <h4 class="footer__top-policy-heading">Chính sách tình nguyện  </h4>
+
+                        <ul class="footer__top-policy-list">
+                            <li class="footer__top-policy-item">
+                                <a th:href="@{/ordering-methods}" class="footer__top-policy-link">Hình thức đặt hàng</a>
+                            </li>
+                            <li class="footer__top-policy-item">
+                                <a th:href="@{/payment-methods}" class="footer__top-policy-link">Hình thức thanh toán</a>
+                            </li>
+                            <li class="footer__top-policy-item">
+                                <a th:href="@{/shipping-methods}" class="footer__top-policy-link">Phương thức vận chuyển</a>
+                            </li>
+                            <li class="footer__top-policy-item">
+                                <a th:href="@{/return-policy}" class="footer__top-policy-link">Chính sách đổi trả</a>
+                            </li>
+                            <li class="footer__top-policy-item">
+                                <a th:href="@{/user-guide}" class="footer__top-policy-link">Hướng dẫn sử dụng</a>
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article class="footer__top-contact-wrap col-lg-4 col-md-4 col-sm-6">
+                        <h4 class="footer__top-contact-heading">Hotline liên hệ</h4>
+
+                        <div class="footer__top-contact">
+                            <div class="footer__top-contact-icon">
+                                <img src="Customer/images/phone_top.png" class="footer__top-contact-img">
+                            </div>
+
+                            <div class="footer__top-contact-phone-wrap">
+                                <div class="footer__top-contact-phone">039.882.888888</div>
+                                <div class="footer__top-contact-des">(Giải đáp thắc mắc 24/24)</div>
+                            </div>
+                        </div>
+
+                        <h4 class="footer__top-contact-heading">Kết nối với chúng tôi</h4>
+
+                        <div class="footer__top-contact-social">
+                            <a href="#" class="footer__top-contact-social-link">
+                                <img src="Customer/images/facebook.png">
+                            </a>
+                            <a href="#" class="footer__top-contact-social-link">
+                                <img src="Customer/images/youtube.png">
+                            </a>
+                            <a href="#" class="footer__top-contact-social-link">
+                                <img src="Customer/images/tiktok.png">
+                            </a>
+                            <a href="#" class="footer__top-contact-social-link">
+                                <img src="Customer/images/zalo.png">
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="footer__bottom">
+            <div class="container">
+                <div class="row">
+<!--                    <span class="footer__bottom-content">@Bản quyền thuộc về edubook | Thiết kế bởi team ED2 </span>-->
+                    <span class="footer__bottom-content">@Bản quyền thuộc về Nâng bước tuổi thơ | Thiết kế bởi nhóm 6 </span>
+                </div>
+            </div>
+        </section>
+    </footer>
+    <!-- end footer -->
+</div>
+
+<!--<script th:fragment="link-css-customer" src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<!--<script th:fragment="link-css-customer" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa6ow/JrwofW8IKMgMtD47Zpc" crossorigin="anonymous"></script>-->
+<!--<script th:fragment="link-css-customer" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<script th:fragment="link-css-customer" src="/Customer/js/jq.js"></script>
+<script th:fragment="link-css-customer" src="/Customer/js/text.js"></script>
+<script th:fragment="link-css-customer" src="/Customer/js/index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - EduBook</title>
+    <th:block th:replace="layout::link-css-customer"></th:block>
+    <style>
+        /* Additional CSS for product cards */
+       .product__card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .product__card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .product__card .product__title {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .product__card .product__price {
+            color: #007bff;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+        .product__card .btn-add-to-cart,
+        .product__card .btn-view-detail {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+        .product__card .btn-add-to-cart:hover,
+        .product__card .btn-view-detail:hover {
+            background-color: #218838;
+              margin-left: 10px;
+        }
+
+        /* Chatbox CSS */
+        .chatbox {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            max-width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1000;
+        }
+        .chatbox-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .chatbox-body {
+            display: none;
+            background-color: #f9f9f9;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .chatbox-messages {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .chatbox-message {
+            margin-bottom: 10px;
+        }
+        .chatbox-message-user {
+            font-weight: bold;
+        }
+        .chatbox-footer {
+            display: none;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .chatbox-footer input {
+            width: calc(100% - 60px);
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .chatbox-footer button {
+            width: 40px;
+            padding: 8px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        /* Chatbox CSS */
+        .chatbox {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            max-width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1000;
+        }
+        .chatbox-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .chatbox-body {
+            display: none;
+            background-color: #f9f9f9;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .chatbox-messages {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .chatbox-message {
+            margin-bottom: 10px;
+        }
+        .chatbox-message-user {
+            font-weight: bold;
+        }
+        .chatbox-footer {
+            display: none;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .chatbox-footer input {
+            width: calc(100% - 60px);
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .chatbox-footer button {
+            width: 40px;
+            padding: 8px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <th:block th:replace="layout::header-customer"></th:block>
+<!--    djdkajd-->
+    <section class="menu-slide">
+        <div class="container">
+            <div class="row">
+                <nav class="menu__nav col-lg-3 col-md-12 col-sm-0">
+                    <ul class="menu__list">
+                        <li class="menu__item menu__item--active">
+                            <a href="#" class="menu__link">
+                                <img src="Customer/images1/item/baby-boy.png" alt="" class="menu__item-icon" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512">
+
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">
+                                <img src="Customer/images1/item/translation.png" alt="" class="menu__item-icon" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512">
+
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">
+                                <img src="Customer/images1/item/1380754_batman_comic_hero_superhero_icon.png" alt="" class="menu__item-icon" viewBox="0 0 512 512" width="1012" height="512">
+
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="slider col-lg-9 col-md-12 col-sm-0">
+                    <div class="row">
+                        <div class="slide__left col-lg-8 col-md-0 col-sm-0">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="Customer/images1/banner/Cov-Buoc-Toi-Tuong-Lai.png" class="d-block w-100" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="Customer/images1/banner/Nha-Dong-Hanh.png" class="d-block w-100" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="Customer/images1/banner/Nangbuoctuoitho050723.jpg" class="d-block w-100" alt="...">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                            <div class="slide__left-bottom">
+                                <div class="slide__left-botom-one">
+                                    <img src="Customer/images1/banner/dai-dien-da-che-550x375.png" class="slide__left-bottom-one-img">
+                                </div>
+                                <div class="slide__left-bottom-two">
+                                    <img src="Customer/images1/banner/anh4-1558063746.jpg" class="slide__left-bottom-tow-img">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide__right col-lg-4 col-md-0 col-sm-0">
+                            <img src="Customer/images1/banner/anh3-1558063735.png" class="slide__right-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top bán chạy nhất tuần -->
+    <section class="bestselling">
+        <div class="container">
+            <div class="row">
+                <div class="bestselling__heading-wrap">
+                    <img src="Customer/images/bestselling.png" alt="Sản phẩm bán chạy" class="bestselling__heading-img">
+                    <div class="bestselling__heading">Chiến dịch từ thiện</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Danh sách sản phẩm -->
+    <section class="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <!-- Sử dụng Thymeleaf để lặp qua danh sách sản phẩm và hiển thị -->
+                        <div th:each="product : ${products}" th:if="${not product.isDeleted}" class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100 product__card">
+                                <!-- Hình ảnh sản phẩm -->
+                                <img class="card-img-top" th:src="@{/Admin/img/{img1}(img1=${product.img1})}" alt="">
+
+                                <div class="card-body">
+                                    <!-- Tên sản phẩm -->
+                                    <h4 th:text="${product.title}" class="card-title product__title"></h4>
+                                    <!-- Giá sản phẩm -->
+                                    <h5 th:text="'$' + ${product.price}" class="card-text product__price"></h5>
+                                </div>
+                                <!-- Nút thêm vào giỏ hàng -->
+                                <div class="card-footer">
+                                    <form th:action="@{/cart/add}" method="post">
+                                        <input type="hidden" name="productId" th:value="${product.id}" />
+                                        <input type="hidden" name="quantity" value="1" />
+                                        <button type="submit" class="btn btn-primary btn-add-to-cart">Quyên góp</button>
+                                        <a th:href="@{/product/detail/{id}(id=${product.id})}" class="btn btn-secondary btn-view-detail">Xem chi tiết</a>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Có thể bạn thích -->
+    <section class="product__love">
+        <div class="container">
+            <div class="row bg-white">
+                <div class="col-lg-12 col-md-12 col-sm-12 product__love-title">
+                    <h2 class="product__love-heading">Góp một bàn tay cho nhiều cuộc đời nhỏ</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tin tức - Bài viết -->
+    <section class="posts">
+        <div class="container">
+            <header class="row posts__title">
+                <div class="posts__title-wrap col-lg-12 col-md-12 col-sm-12">
+                    <h2 class="posts__heading">Tin tức - Bài viết</h2>
+                </div>
+            </header>
+            <article class="row posts__list">
+                <!-- Placeholder for posts -->
+            </article>
+            <article class="row posts__view">
+                <a href="post.html" class="posts__view-btn">Xem thêm</a>
+            </article>
+        </div>
+    </section>
+    <!-- Chatbox -->
+    <div class="chatbox">
+        <div class="chatbox-header">Chat với chúng tôi!</div>
+        <div class="chatbox-body">
+            <ul class="chatbox-messages">
+                <!-- Messages will be dynamically added here -->
+            </ul>
+        </div>
+        <div class="chatbox-footer">
+            <input type="text" placeholder="Nhập tin nhắn...">
+            <button>Gửi</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <th:block th:replace="layout::footer-customer"></th:block>
+</div>
+
+<!-- Scripts -->
+<script src="Customer/js/jq.js"></script>
+<script src="Customer/js/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
+<script>
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/public', function (chatMessage) {
+                showMessage(JSON.parse(chatMessage.body));
+            });
+        });
+    }
+
+    function sendMessage() {
+        var messageInput = document.querySelector('.chatbox-footer input');
+        var message = messageInput.value;
+        if (message.trim() !== '') {
+            var chatMessage = {
+                sender: 'Customer', // Replace with the user's name or identifier
+                content: message,
+                type: 'CHAT'
+            };
+            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+            messageInput.value = '';
+        }
+    }
+
+    function showMessage(message) {
+        var messages = document.querySelector('.chatbox-messages');
+        var newMessage = document.createElement('li');
+        newMessage.className = 'chatbox-message';
+        newMessage.innerHTML = '<span class="chatbox-message-user">' + message.sender + ':</span> ' + message.content;
+        messages.appendChild(newMessage);
+        var chatboxBody = document.querySelector('.chatbox-body');
+        chatboxBody.scrollTop = chatboxBody.scrollHeight;
+    }
+
+    document.querySelector('.chatbox-header').addEventListener('click', function() {
+        var chatboxBody = document.querySelector('.chatbox-body');
+        var chatboxFooter = document.querySelector('.chatbox-footer');
+        if (chatboxBody.style.display === 'block') {
+            chatboxBody.style.display = 'none';
+            chatboxFooter.style.display = 'none';
+        } else {
+            chatboxBody.style.display = 'block';
+            chatboxFooter.style.display = 'block';
+        }
+    });
+
+    document.querySelector('.chatbox-footer button').addEventListener('click', function() {
+        sendMessage();
+    });
+
+    connect();
+</script>
+</body>
+</html>

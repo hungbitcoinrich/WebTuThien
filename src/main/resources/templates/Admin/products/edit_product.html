@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+<!--    <title> eduBook</title>-->
+    <title>Chỉnh sửa chiến dịch</title>
+    <th:block th:replace="layout_admin::link-css-admin"></th:block>
+</head>
+<body>
+<th:block th:replace="layout_admin::header-admin"></th:block>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a th:href="@{/}"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+<!--            <li><a th:href="@{/Admin/products}">Quản lý sản phẩm</a></li>-->
+            <li><a th:href="@{/Admin/products}">Quản lý chiến dịch</a></li>
+<!--            <li class="active">Sản phẩm số 1</li>-->
+            <li class="active">Chiến dịch số 1</li>
+        </ol>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+<!--            <h1 class="page-header">Sản phẩm: Chuyện con mèo dạy hải âu bay</h1>-->
+            <h1 class="page-header">Chiến dịch : 14 tỷ</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <form th:action="@{/Admin/products/edit_product/{id}(id=${product.id})}"
+                              th:object="${product}" method="post"
+                              class="needs-validation" novalidate enctype="multipart/form-data">
+                            <div class="mb-3">
+<!--                                <label for="title" class="form-label">Name:</label>-->
+                                <label for="title" class="form-label">Tên chiến dịch:</label>
+                                <input type="text" th:field="*{title}" class="form-control" id="title" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                            </div>
+                            <div class="mb-3">
+<!--                                <label for="author" class="form-label">tên tác giả:</label>-->
+                                <label for="author" class="form-label">Người kêu gọi:</label>
+                                <input type="text" th:field="*{author}" class="form-control" id="author" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
+                            </div>
+                            <div class="mb-3">
+<!--                                <label for="price" class="form-label">Price:</label>-->
+                                <label for="price" class="form-label">Số tiền cần kêu gọi:</label>
+                                <input type="text" th:field="*{price}" class="form-control" id="price" required>
+                            </div>
+                            <div class="mb-3">
+<!--                                <label for="quantity" class="form-label">Quantity:</label>-->
+                                <label for="quantity" class="form-label">Số lượng:</label>
+                                <input type="text" th:field="*{quantity}" class="form-control" id="quantity" required>
+                            </div>
+                            <div class="mb-3">
+<!--                                <label for="detail" class="form-label">Description (optional):</label>-->
+                                <label for="detail" class="form-label">Mô tả chiến dịch:</label>
+                                <textarea th:field="*{detail}" class="form-control" id="detail"></textarea>
+                            </div>
+                            <div class="mb-3">
+<!--                                <label for="category" class="form-label">Category:</label>-->
+                                <label for="category" class="form-label">Phân loại chiến dịch:</label>
+                                <select th:field="*{category.id}" class="form-control" id="category">
+                                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+<!--                                <label for="image" class="form-label">Image:</label>-->
+                                <label for="image" class="form-label">Hình ảnh:</label>
+                                <input type="file" name="image" class="form-control" id="image" onchange="previewImage(event)">
+                            </div>
+
+                            <div class="mb-3">
+                                <img id="current-image" th:src="@{'/Admin/img/' + ${product.img1}}" alt="${product.title}" width="100" height="100">
+                            </div>
+<!--                            <button type="submit" class="btn btn-primary">Update Product</button>-->
+                            <button type="submit" class="btn btn-primary">Cập nhật</button>
+<!--                            <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-link">Cancel</a>-->
+                            <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-link">Hủy</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var currentImage = document.getElementById('current-image');
+            currentImage.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <title>EduBook edit-product</title>-->
+
+<!--    <link th:href="@{/Admin/css/bootstrap.min.css}" rel="stylesheet">-->
+<!--    <link th:href="@{/Admin/css/datepicker3.css}" rel="stylesheet">-->
+<!--    <link th:href="@{/Admin/css/bootstrap-table.css}" rel="stylesheet">-->
+<!--    <link th:href="@{/Admin/css/styles.css}" rel="stylesheet">-->
+
+<!--    &lt;!&ndash; Icons &ndash;&gt;-->
+<!--    <script th:src="@{/Admin/js/lumino.glyphs.js}"></script>-->
+
+<!--  -->
+<!--    <script th:src="@{/Admin/js/html5shiv.js}"></script>-->
+<!--    <script th:src="@{/Admin/js/respond.min.js}"></script>-->
+<!--    <![endif]&ndash;&gt;-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
+<!--    <div class="container-fluid">-->
+<!--        <div class="navbar-header">-->
+<!--            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">-->
+<!--                <span class="sr-only">Toggle navigation</span>-->
+<!--                <span class="icon-bar"></span>-->
+<!--                <span class="icon-bar"></span>-->
+<!--                <span class="icon-bar"></span>-->
+<!--            </button>-->
+<!--            <a class="navbar-brand" th:href="@{/index.html}"><span>Edu</span>Book</a>-->
+<!--            <ul class="user-menu">-->
+<!--                <li class="dropdown pull-right">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+<!--                        <svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Admin <span class="caret"></span>-->
+<!--                    </a>-->
+<!--                    <ul class="dropdown-menu" role="menu">-->
+<!--                        <li><a href="#"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Hồ sơ</a></li>-->
+<!--                        <li><a href="#"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Đăng xuất</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">-->
+<!--    <ul class="nav menu">-->
+<!--        <li><a th:href="@{/Admin/categoryes}"><svg class="glyph stroked open folder"><use xlink:href="#stroked-open-folder"/></svg> Quản lý danh mục</a></li>-->
+<!--        <li class="active"><a th:href="@{/Admin/products}"><svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg> Quản lý sản phẩm</a></li>-->
+<!--        <li><a th:href="@{/Customer/index}"><svg class="glyph stroked open folder"><use xlink:href="#stroked-open-folder"/></svg> Về EduBook</a></li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+<!--<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">-->
+<!--    <div class="row">-->
+<!--        <ol class="breadcrumb">-->
+<!--            <li><a th:href="@{/}"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>-->
+<!--            <li><a th:href="@{/Admin/products}">Quản lý sản phẩm</a></li>-->
+<!--            <li class="active">Sản phẩm số 1</li>-->
+<!--        </ol>-->
+<!--    </div>-->
+
+<!--    <div class="row">-->
+<!--        <div class="col-lg-12">-->
+<!--            <h1 class="page-header">Sản phẩm: Chuyện con mèo dạy hải âu bay</h1>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="row">-->
+<!--        <div class="col-lg-12">-->
+<!--            <div class="panel panel-default">-->
+<!--                <div class="panel-body">-->
+<!--                    <div class="col-md-6">-->
+<!--                        <form th:action="@{/Admin/products/edit_product/{id}(id=${product.id})}"-->
+<!--                              th:object="${product}" method="post"-->
+<!--                              class="needs-validation" novalidate enctype="multipart/form-data">-->
+<!--                            <div class="mb-3">-->
+<!--                                <label for="title" class="form-label">Name:</label>-->
+<!--                                <input type="text" th:field="*{title}" class="form-control" id="title" required>-->
+<!--                                <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>-->
+<!--                            </div>-->
+<!--                            <div class="mb-3">-->
+<!--                                <label for="author" class="form-label">tên tác giả:</label>-->
+<!--                                <input type="text" th:field="*{author}" class="form-control" id="author" required>-->
+<!--                                <div class="text-danger" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>-->
+<!--                            </div>-->
+<!--                            <div class="mb-3">-->
+<!--                                <label for="price" class="form-label">Price:</label>-->
+<!--                                <input type="text" th:field="*{price}" class="form-control" id="price" required>-->
+<!--                            </div>-->
+<!--                            <div class="mb-3">-->
+<!--                                <label for="quantity" class="form-label">Quantity:</label>-->
+<!--                                <input type="text" th:field="*{quantity}" class="form-control" id="quantity" required>-->
+<!--                            </div>-->
+<!--                            <div class="mb-3">-->
+<!--                                <label for="detail" class="form-label">Description (optional):</label>-->
+<!--                                <textarea th:field="*{detail}" class="form-control" id="detail"></textarea>-->
+<!--                            </div>-->
+<!--                            <div class="mb-3">-->
+<!--                                <label for="category" class="form-label">Category:</label>-->
+<!--                                <select th:field="*{category.id}" class="form-control" id="category">-->
+<!--                                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+
+<!--                            <div class="mb-3">-->
+<!--                                <label for="image" class="form-label">Image:</label>-->
+<!--                                <input type="file" name="image" class="form-control" id="image">-->
+<!--                            </div>-->
+
+
+<!--                            <button type="submit" class="btn btn-primary">Update Product</button>-->
+<!--                            <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-link">Cancel</a>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

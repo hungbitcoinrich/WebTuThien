@@ -1,0 +1,81 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Ordering Methods</title>-->
+<!--    <th:block th:replace="layout_admin::link-css-admin"></th:block>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Ordering Methods</h1>-->
+<!--<a th:href="@{/Admin/orderingmethods/add}">Add Ordering Methods</a>-->
+<!--<a th:href="@{/Admin}">Back</a>-->
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Title</th>-->
+<!--        <th>Content</th>-->
+<!--        <th>Actions</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="orderingmethod : ${orderingmethods}">-->
+<!--        <td th:text="${orderingmethod.id}"></td>-->
+<!--        <td th:text="${orderingmethod.title}"></td>-->
+<!--        <td th:text="${orderingmethod.content}"></td>-->
+<!--        <td>-->
+<!--            <a th:href="@{/Admin/orderingmethods/edit/{id}(id=${orderingmethod.id})}">Edit</a>-->
+<!--            <a th:href="@{/Admin/orderingmethods/delete/{id}(id=${orderingmethod.id})}">Delete</a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordering Methods</title>
+    <th:block th:replace="layout_admin::link-css-admin"></th:block>
+    <!-- Include CKEditor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+</head>
+<body>
+<h1>Ordering Methods</h1>
+<a th:href="@{/Admin/orderingmethods/add}">Add Ordering Methods</a>
+<a th:href="@{/Admin}">Back</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="orderingmethod : ${orderingmethods}">
+        <td th:text="${orderingmethod.id}"></td>
+        <td th:text="${orderingmethod.title}"></td>
+        <td th:utext="${orderingmethod.content}"></td>
+        <td>
+            <a th:href="@{/Admin/orderingmethods/edit/{id}(id=${orderingmethod.id})}">Edit</a>
+            <a th:href="@{/Admin/orderingmethods/delete/{id}(id=${orderingmethod.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!-- Initialize CKEditor -->
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+</body>
+</html>

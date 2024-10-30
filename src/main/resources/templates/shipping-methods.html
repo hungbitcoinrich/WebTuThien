@@ -1,0 +1,79 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title th:text="'Hình thức vận chuyển - EduBook'">Hình thức vận chuyển - EduBook</title>-->
+<!--    <th:block th:replace="layout::link-css-customer"></th:block>-->
+<!--</head>-->
+<!--<body>-->
+<!--<th:block th:replace="layout::header-customer"></th:block>-->
+<!--<div layout:decorate="layout">-->
+<!--    <div layout:fragment="content">-->
+<!--        <div class="container">-->
+<!--            <h1>Hình thức vận chuyển</h1>-->
+<!--            <table>-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>Title</th>-->
+<!--                    <th>Content</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr th:each="shippingmethod : ${shippingmethods}">-->
+<!--                    <td th:text="${shippingmethod.title}"></td>-->
+<!--                    <td th:text="${shippingmethod.content}"></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<th:block th:replace="layout::footer-customer"></th:block>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Hình thức vận chuyển - EduBook'">Hình thức vận chuyển - EduBook</title>
+    <th:block th:replace="layout::link-css-customer"></th:block>
+    <!-- Include CKEditor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+</head>
+<body>
+<th:block th:replace="layout::header-customer"></th:block>
+<div layout:decorate="layout">
+    <div layout:fragment="content">
+        <div class="container">
+            <h1>Hình thức vận chuyển</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="shippingmethod : ${shippingmethods}">
+                    <td th:text="${shippingmethod.title}"></td>
+                    <td th:utext="${shippingmethod.content}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<th:block th:replace="layout::footer-customer"></th:block>
+<!-- Initialize CKEditor -->
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+</body>
+</html>

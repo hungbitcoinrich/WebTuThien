@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--	<title>EduBook Category</title>-->
+	<title>Phân loại chiến dịch</title>
+	<link th:replace="layout_admin::link-css-admin"></link>
+
+</head>
+
+<body>
+<th:block th:replace="layout_admin::header-admin"></th:block>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+	<div class="row">
+		<ol class="breadcrumb">
+			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+<!--			<li class="active">Quản lý danh mục</li>-->
+			<li class="active">Quản lý phân loại chiến dịch</li>
+		</ol>
+	</div><!--/.row-->
+
+	<div class="row">
+		<div class="col-lg-12">
+<!--			<h1 class="page-header">Quản lý danh mục</h1>-->
+			<h1 class="page-header">Quản lý phân loại chiến dịch</h1>
+		</div>
+		<form th:action="@{/Admin/categories/category/search}" method="get" class="form-inline">
+			<div class="form-group">
+				<input type="text" name="name" class="form-control" placeholder="Search by name" th:value="${searchName}">
+			</div>
+			<button type="submit" class="btn btn-primary">Search</button>
+		</form>
+	</div><!--/.row-->
+	<div id="toolbar" class="btn-group">
+		<a href="/Admin/categories/add_category" class="btn btn-success">
+<!--			<i class="glyphicon glyphicon-plus"></i> Thêm danh mục-->
+			<i class="glyphicon glyphicon-plus"></i> Thêm phân loại chiến dịch
+		</a>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<form th:action="@{/Admin/categories/delete_multiple}" method="post" id="deleteForm">
+					<table
+							data-toolbar="#toolbar"
+							data-toggle="table">
+
+						<thead>
+						<tr>
+							<th><input type="checkbox" id="selectAll"/></th>
+							<th>ID</th>
+<!--							<th>Tên thể loại</th>-->
+							<th>Tên phân loại chiến dịch</th>
+<!--							<th>Hành động</th>-->
+							<th>Chức năng</th>
+						</tr>
+						</thead>
+						<tbody>
+						<!-- Duyệt qua danh sách thể loại -->
+						<tr th:each="category : ${categories}">
+							<td><input type="checkbox" name="categoryIds" th:value="${category.id}"/></td>
+							<td th:text="${category.id}"></td>
+							<td th:text="${category.name}"></td>
+							<td>
+								<!-- Nút chỉnh sửa -->
+								<a class="btn btn-primary" th:href="@{'/Admin/categories/edit_category/' + ${category.id}}">Chỉnh sửa</a>
+								<!-- Nút xóa -->
+								<a class="btn btn-danger" th:href="@{'/Admin/categories/delete/' + ${category.id}}">Xóa</a>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+						<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete selected category?')">Xóa nhiều sản phẩm</button>
+						</form>
+				</div>
+				<div class="panel-footer">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+								<a class="page-link" th:href="@{'/Admin/categories/category?page=' + (${currentPage} - 1)}" aria-label="Previous">&laquo;</a>
+							</li>
+							<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" class="page-item" th:classappend="${currentPage == i} ? 'active'">
+								<a class="page-link" th:href="@{'/Admin/categories/category?page=' + ${i}}"
+								   th:text="${i + 1}">1</a>
+							</li>
+							<li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+								<a class="page-link" th:href="@{'/Admin/categories/category?page=' + (${currentPage} + 1)}" aria-label="Next">&raquo;</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div><!--/.row-->
+</div> <!--/.main-->
+
+<script src="/Admin/js/jquery-1.11.1.min.js"></script>
+<script src="/Admin/js/bootstrap.min.js"></script>
+<script src="/Admin/js/bootstrap-table.js"></script>
+
+<script>
+	document.getElementById('selectAll').addEventListener('click', function(event) {
+        const checkboxes = document.querySelectorAll('input[name="categoryIds"]');
+        checkboxes.forEach(checkbox => checkbox.checked = event.target.checked);
+    });
+</script>
+</body>
+</html>

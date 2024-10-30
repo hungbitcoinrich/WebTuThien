@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .invoice-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            border: 1px solid #ddd;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .invoice-header, .invoice-footer {
+            background-color: #f7f7f7;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .invoice-header p, .invoice-footer p {
+            margin: 0;
+            padding: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total-row td {
+            font-weight: bold;
+            text-align: right;
+        }
+        .total-row td:last-child {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="invoice-container">
+    <div class="invoice-header">
+        <h1>Hóa đơn</h1>
+    </div>
+
+    <p><strong>mã đặt hàng:</strong> <span th:text="${order.id}"></span></p>
+    <p><strong>tên khách hàng:</strong> <span th:text="${order.customerName}"></span></p>
+    <p><strong>địa chỉ đặt hàng:</strong> <span th:text="${order.shippingAddress}"></span></p>
+    <p><strong>sdt:</strong> <span th:text="${order.phoneNumber}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${order.email}"></span></p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>OderDate</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate over order details or products -->
+        <tr th:each="item : ${order.orderDetails}">
+            <td th:text="${item.product.title}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.product.price}"></td>
+            <td th:text="${item.quantity * item.product.price}"></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr class="total-row">
+            <td colspan="3">Total Price</td>
+            <td th:text="${order.totalPrice}"></td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <div class="invoice-footer">
+        <p>Cảm ơn Quý khách đã mua hàng!</p>
+    </div>
+</div>
+</body>
+</html>

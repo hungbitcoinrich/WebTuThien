@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+    <th:block th:replace="layout::link-css-customer" ></th:block>
+    <link rel="stylesheet" href="Customer/css/cart.css">
+</head>
+<body>
+
+<th:block th:replace="layout::header-customer"></th:block>
+
+<button onclick="topFunction()" id="myBtn-scroll" title="Go to top"><i class="fas fa-chevron-down"></i></button>
+    <!-- cart -->
+	<section class="cart">
+		<div class="container">
+			<article class="row cart__head pc">
+				<nav class="menu__nav col-lg-3 col-md-12 col-sm-0">
+                    <ul class="menu__list">
+                        <li class="menu__item menu__item--active">
+                            <a href="#" class="menu__link">
+                            <img src="images1/item/baby-boy.png" alt=""  class="menu__item-icon" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512">
+                            Sách Tiếng Việt</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">
+                            <img src="images1/item/translation.png" alt="" class="menu__item-icon"  enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512">
+                            Sách nước ngoài</a>
+                        </li>
+                      
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">
+                                <img src="images1/item/1380754_batman_comic_hero_superhero_icon.png" alt="" class="menu__item-icon"  viewBox="0 0 512 512" width="1012" height="512">
+
+                            Manga - Comic</a>
+                        </li>
+                      
+                    </ul>
+                </nav>
+				<div class="col-6 cart__head-name">
+					Thông tin sản phẩm
+				</div>
+				<div class="col-3 cart__head-quantity">
+					Số lượng
+				</div>
+				<div class="col-3 cart__head-price">
+					Đơn giá
+				</div>
+			</article>
+
+
+
+
+			<article class="row cart__foot">
+				<div class="col-6 col-lg-6 col-sm-6 cart__foot-update">
+					<button class="cart__foot-update-btn">Cập nhật giỏ hàng</button>
+				</div>
+
+				<p class="col-3 col-lg-3 col-sm-3 cart__foot-total">
+					Tổng cộng: 
+				</p>
+
+				<span class="col-3 col-lg-3 col-sm-3 cart__foot-price">
+					 <br>
+
+					<button class="cart__foot-price-btn">Mua hàng</button>
+				</span>
+			</article>
+		</div>
+	</section>
+    <!--end cart -->
+
+    <!-- footer -->
+<th:block th:replace="layout::footer-customer"></th:block>
+    <script src="js/jq.js"></script>
+</body>
+</html>

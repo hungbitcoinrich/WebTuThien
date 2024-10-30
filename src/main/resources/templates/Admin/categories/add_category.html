@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--	<title>EduBook Add Category</title>-->
+	<title>Thêm phân loại chiến dịch</title>
+	<th:block th:replace="layout_admin::link-css-admin"></th:block>
+</head>
+<body>
+<th:block th:replace="layout_admin::header-admin"></th:block>
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+	<div class="row">
+		<ol class="breadcrumb">
+			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+<!--			<li class="active">Thêm danh mục</li>-->
+			<li class="active">Thêm phân loại chiến dịch</li>
+		</ol>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+<!--			<h1 class="page-header">Thêm danh mục</h1>-->
+			<h1 class="page-header">Thêm phân loại chiến dịch</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="col-md-8">
+						<form th:action="@{/Admin/categories/add_category}" th:object="${category}" method="post">
+							<div class="mb-3">
+<!--								<label for="name" class="form-label">Category Name:</label>-->
+								<label for="name" class="form-label">Tên thể loại chiến dịch:</label>
+								<input type="text" id="name" th:field="*{name}" class="form-control"/>
+								<div class="text-danger" th:if="${#fields.hasErrors('name')}"
+									 th:errors="*{name}"></div>
+							</div>
+
+<!--							<button type="submit" class="btn btn-primary">Submit</button>-->
+							<button type="submit" class="btn btn-primary">Lưu</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/Admin/js/jquery-1.11.1.min.js"></script>
+<script src="/Admin/js/bootstrap.min.js"></script>
+</body>
+</html>

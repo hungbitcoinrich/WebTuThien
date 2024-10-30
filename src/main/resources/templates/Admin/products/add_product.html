@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+<!--    <title>Add book</title>-->
+    <title>Thêm chiến dịch</title>
+    <th:block th:replace="layout_admin::link-css-admin"></th:block>
+</head>
+
+<body>
+<th:block th:replace="layout_admin::header-admin"></th:block>
+
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+<!--            <li><a href="">Quản lý sản phẩm</a></li>-->
+            <li><a href="">Quản lý chiến dịch</a></li>
+<!--            <li class="active">Thêm sản phẩm</li>-->
+            <li class="active">Thêm chiến dịch</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+<!--            <h1 class="page-header">Thêm sản phẩm</h1>-->
+            <h1 class="page-header">Thêm chiến dịch</h1>
+        </div>
+    </div><!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <form th:action="@{/Admin/products/add_product}" th:object="${product}" method="post"
+                              class="needs-validation" novalidate enctype="multipart/form-data">
+                            <div class="mb-3">
+<!--                                <label for="title" class="form-label">Name:</label>-->
+                                <label for="title" class="form-label">Tên chiến dịch:</label>
+                                <input type="text" th:field="*{title}" class="form-control" id="title"
+                                       required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('title')}"
+                                     th:errors="*{title}"></div>
+                            </div>
+                            <div class="mb-3">
+<!--                                <label for="author" class="form-label">tên tác giả:</label>-->
+                                <label for="author" class="form-label">Người kêu gọi:</label>
+                                <input type="text" th:field="*{author}" class="form-control" id="author"
+                                       required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('author')}"
+                                     th:errors="*{author}"></div>
+                            </div>
+                            <div class="mb-3">
+<!--                                <label for="price" class="form-label">Price:</label>-->
+                                <label for="price" class="form-label">Số tiền cần kêu gọi:</label>
+                                <input type="text" th:field="*{price}" class="form-control" id="price"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="quantity" class="form-label">số lượng:</label>
+                                <input type="text" th:field="*{quantity}" class="form-control" id="quantity"
+                                       required>
+                            </div>
+
+                            <div class="mb-3">
+<!--                                <label for="category" class="form-label">Category:</label>-->
+                                <label for="category" class="form-label">Phân loại chiến dịch:</label>
+                                <select th:field="*{category}" class="form-control" id="category">
+                                    <option th:each="category : ${categories}" th:value="${category.id}"
+                                            th:text="${category.name}"></option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+<!--                                <label for="detail" class="form-label">Description (optional):</label>-->
+                                <label for="detail" class="form-label">Mô tả chiến dịch:</label>
+                                <textarea th:field="*{detail}" class="form-control" id="detail"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+<!--                                <label for="image" class="form-label">Image:</label>-->
+                                <label for="image" class="form-label">Hình ảnh:</label>
+                                <input type="file"  name="image" class="form-control" id="image" onchange="previewImage(event)">
+                            </div>
+
+                            <div class="mb-3">
+                                <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 100%; height: auto;">
+                            </div>
+
+<!--                            <button type="submit" class="btn btn-primary">Add Product</button>-->
+                            <button type="submit" class="btn btn-primary">Thêm chiến dịch</button>
+<!--                            <a th:href="@{/products}" class="btn btn-link">Cancel</a>-->
+                            <a th:href="@{/products}" class="btn btn-link">Hủy</a>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- /.col-->
+        </div><!-- /.row -->
+    </div>
+</div>
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('image-preview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script><!--/.main-->
+<script th:src="@{/Admin/js/jquery.min.js}"></script>
+<script th:src="@{/Admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/Admin/js/lumino.glyphs.js}"></script>
+<script th:src="@{/Admin/js/html5shiv.js}"></script>
+<script th:src="@{/Admin/js/respond.min.js}"></script>
+</body>
+
+</html>

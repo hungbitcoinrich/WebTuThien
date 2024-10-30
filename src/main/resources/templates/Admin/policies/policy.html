@@ -1,0 +1,81 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Policies</title>-->
+<!--    <th:block th:replace="layout_admin::link-css-admin"></th:block>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Policies</h1>-->
+<!--<a th:href="@{/Admin/policies/add}">Add Policy</a>-->
+<!--<a th:href="@{/Admin}">Back</a> &lt;!&ndash; Added Back to Admin button &ndash;&gt;-->
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Title</th>-->
+<!--        <th>Content</th>-->
+<!--        <th>Actions</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="policy : ${policies}">-->
+<!--        <td th:text="${policy.id}"></td>-->
+<!--        <td th:text="${policy.title}"></td>-->
+<!--        <td th:text="${policy.content}"></td>-->
+<!--        <td>-->
+<!--            <a th:href="@{/Admin/policies/edit/{id}(id=${policy.id})}">Edit</a>-->
+<!--            <a th:href="@{/Admin/policies/delete/{id}(id=${policy.id})}">Delete</a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policies</title>
+    <th:block th:replace="layout_admin::link-css-admin"></th:block>
+    <!-- Include CKEditor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+</head>
+<body>
+<h1>Policies</h1>
+<a th:href="@{/Admin/policies/add}">Add Policy</a>
+<a th:href="@{/Admin}">Back</a> <!-- Added Back to Admin button -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="policy : ${policies}">
+        <td th:text="${policy.id}"></td>
+        <td th:text="${policy.title}"></td>
+        <td th:utext="${policy.content}"></td>
+        <td>
+            <a th:href="@{/Admin/policies/edit/{id}(id=${policy.id})}">Edit</a>
+            <a th:href="@{/Admin/policies/delete/{id}(id=${policy.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!-- Initialize CKEditor -->
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+</body>
+</html>

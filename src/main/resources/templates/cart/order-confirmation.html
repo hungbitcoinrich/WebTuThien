@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <th:block th:replace="layout::link-css-customer"></th:block>
+    <link rel="stylesheet" href="Customer/css/order-confirm.css">
+    <style>
+        .order-confirm__heading {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .order-confirm__message {
+            font-size: 1.25rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .btn-home {
+            background-color: #dc3545;
+            color: white;
+            font-size: 1.25rem;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn-home:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<th:block th:replace="layout::header-customer"></th:block>
+
+<button onclick="topFunction()" id="myBtn-scroll" title="Go to top"><i class="fas fa-chevron-down"></i></button>
+
+<section class="order-confirm">
+    <div class="container">
+        <article class="row order-confirm__head">
+            <div class="col-12">
+                <h2 class="order-confirm__heading">XÁC NHẬN ĐƠN HÀNG</h2>
+            </div>
+        </article>
+
+        <article class="row order-confirm__body">
+            <div class="col-12">
+                <p class="order-confirm__message" th:text="${message}"></p>
+                <a href="/Admin" class="btn-home">Quay lại trang chủ</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- footer -->
+<th:block th:replace="layout::footer-customer"></th:block>
+<script src="js/jq.js"></script>
+</body>
+</html>

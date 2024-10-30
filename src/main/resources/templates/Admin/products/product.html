@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin eduBook</title>
+    <th:block th:replace="layout_admin::link-css-admin"></th:block>
+</head>
+<body>
+<th:block th:replace="layout_admin::header-admin"></th:block>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+<!--            <li class="active">Danh sách sản phẩm</li>-->
+            <li class="active">Quản lý chiến dịch</li>
+        </ol>
+    </div><!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+<!--            <h1 class="page-header">Danh sách sản phẩm</h1>-->
+            <h1 class="page-header">Quản lý chiến dịch</h1>
+        </div>
+        <div class="col-lg-12">
+            <form th:action="@{/Admin/search}" method="get" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="title" class="form-control" placeholder="Search by title" th:value="${searchTitle}">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div><!--/.row-->
+    <div id="toolbar" class="btn-group">
+        <a href="Admin/products/add_product" class="btn btn-success">
+<!--            <i class="glyphicon glyphicon-plus"></i> Thêm sản phẩm-->
+            <i class="glyphicon glyphicon-plus"></i> Thêm chiến dịch
+        </a>
+        <a href="Admin/products/upload_excel" class="btn btn-success">
+<!--            <i class="glyphicon glyphicon-plus"></i> Thêm sản phẩm bằng Excel-->
+            <i class="glyphicon glyphicon-plus"></i> Thêm chiến dịch bằng Excel
+        </a>
+        <a href="Admin/products/export_excel" class="btn btn-success">
+<!--            <i class="glyphicon glyphicon-plus"></i> Xuất sản phẩm bằng Excel-->
+            <i class="glyphicon glyphicon-plus"></i> Xuất chiến dịch bằng Excel
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form th:action="@{/Admin/products/delete_multiple}" method="post" id="deleteForm">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-dark">
+                            <tr>
+                                <th><input type="checkbox" id="selectAll"/></th>
+                                <th>ID</th>
+<!--                                <th>title</th>-->
+                                <th>Tên chiến dịch</th>
+<!--                                <th>Author</th>-->
+                                <th>Người kêu gọi</th>
+<!--                                <th>Price</th>-->
+                                <th>Số tiền cần kêu gọi</th>
+                                <th>số lượng</th>
+                                <th>chi tiết</th>
+<!--                                <th>Category Name</th>-->
+                                <th>Phân loại chiến dịch</th>
+<!--                                <th>Image</th>-->
+                                <th>Hình ảnh</th>
+<!--                                <th>Actions</th>-->
+                                <th>Thao tác</th>
+<!--                                <th>Add to cart</th>-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="product : ${products}" th:if="${not product.isDeleted}">
+                                <td><input type="checkbox" name="productIds" th:value="${product.id}"/></td>
+                                <td th:text="${product.id}"></td>
+                                <td th:text="${product.title}"></td>
+                                <td th:text="${product.author}"></td>
+                                <td th:text="${product.price}"></td>
+                                <td th:text="${product.quantity}"></td>
+                                <td th:text="${product.detail}"></td>
+                                <td th:text="${product.category != null ? product.category.name : 'No Category'}">Category Name</td>
+                                <td th:if="${product.img1 != null}">
+                                    <img th:src="@{'/Admin/img/' + ${product.img1}}" alt="${product.title}" width="50" height="50">
+                                </td>
+                                <td th:if="${product.img1 == null}">No Image</td>
+                                <td>
+                                    <a th:href="@{/Admin/products/edit_product/{id}(id=${product.id})}" class="btn btn-success btn-sm">Edit</a>
+                                    <a th:href="@{/Admin/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                                </td>
+<!--                                <td>-->
+<!--                                    <form th:action="@{/cart/add}" method="post">-->
+<!--                                        <input type="number" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">-->
+<!--                                        <input type="hidden" th:value="${product.id}" name="productId"/>-->
+<!--                                        <button type="submit" class="btn btn-warning btn-sm">Add to Cart</button>-->
+<!--                                    </form>-->
+<!--                                </td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete selected products?')">Xóa nhiều sản phẩm</button>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                                <a class="page-link" th:href="@{'/Admin?page=' + (${currentPage} - 1)}" aria-label="Previous">&laquo;</a>
+                            </li>
+                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" class="page-item" th:classappend="${currentPage == i} ? 'active'">
+                                <a class="page-link" th:href="@{'/Admin?page=' + ${i}}"
+                                   th:text="${i + 1}">1</a>
+                            </li>
+                            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                                <a class="page-link" th:href="@{'/Admin?page=' + (${currentPage} + 1)}" aria-label="Next">&raquo;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('selectAll').addEventListener('click', function(event) {
+        const checkboxes = document.querySelectorAll('input[name="productIds"]');
+        checkboxes.forEach(checkbox => checkbox.checked = event.target.checked);
+    });
+</script>
+</body>
+</html>

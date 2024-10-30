@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>VNPay Return</title>
+</head>
+<body>
+<h1>Payment Result</h1>
+<div th:text="${vnp_ResponseCode}"></div>
+<div th:text="${vnp_TransactionNo}"></div>
+<!-- Đổi tên biến param thành params -->
+<div th:each="entry : ${params}">
+    <div th:text="${entry.key} + ': ' + ${entry.value}"></div>
+</div>
+</body>
+</html>

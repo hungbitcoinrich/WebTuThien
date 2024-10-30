@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh mục sản phẩm - EduBook</title>
+    <th:block th:replace="layout::link-css-customer" ></th:block>
+ <link rel="stylesheet" href="Customer//category.css">
+ <link rel="stylesheet" href="Customer/fonts/fontawesome/css/all.min.css">
+</head>
+<body>
+<th:block th:replace="layout::header-customer"></th:block>
+
+    <!-- category 1: Sách trong nước-->
+    <section id ='category1' class="product__love">
+        <div class="container">
+            <div class="row bg-white">
+                <div class="col-lg-12 col-md-12 col-sm-12 product__love-title">
+                    <h2 class="product__love-heading upper">
+                        Sách Tiếng Việt
+                    </h2>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- category 2: Sách nước ngoài-->
+    <section  id ='category2' class="product__love">
+        <div class="container">
+            <div class="row bg-white">
+                <div class="col-lg-12 col-md-12 col-sm-12 product__love-title">
+                    <h2 class="product__love-heading upper">
+                        Sách Nước Ngoài
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- category 3: Manga - Comics-->
+    <section  id ='category3'class="product__love">
+        <div class="container">
+            <div class="row bg-white">
+                <div class="col-lg-12 col-md-12 col-sm-12 product__love-title">
+                    <h2 class="product__love-heading upper">
+                        Manga - Comics
+                    </h2>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- footer -->
+<th:block th:replace="layout::footer-customer"></th:block>
+
+<button onclick="topFunction()" id="myBtn-scroll" title="Go to top"><i class="fas fa-chevron-up"></i></i></button>
+    <!--  -->
+    
+    <script src="js/jq.js"></script>
+    <script src="js/category.js"></script>
+</body>
+</html>

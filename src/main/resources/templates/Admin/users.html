@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách người dùng</title>
+    <th:block th:replace="layout_admin::link-css-admin"></th:block>
+</head>
+<body>
+<th:block th:replace="layout_admin::header-admin"></th:block>
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+            <li class="active">Quản lý người dùng</li>
+        </ol>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <h1>Danh sách người dùng</h1>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên đăng nhập</th>
+                                <th>Email</th>
+                                <th>Tên</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user : ${users}">
+                                <td th:text="${user.id}"></td>
+                                <td th:text="${user.username}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.name}"></td>
+                                <td th:text="${user.enabled ? 'Hoạt động' : 'Bị khóa'}"></td>
+                                <td>
+                                    <a th:if="${user.enabled}" th:href="@{/lock/{id}(id=${user.id})}">Khóa</a>
+                                    <a th:if="${!user.enabled}"  th:href="@{/unlock/{id}(id=${user.id})}">Mở khóa</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div th:if="${message}">
+                            <p th:text="${message}" class="alert alert-info"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/Admin/js/jquery.min.js}"></script>
+<script th:src="@{/Admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/Admin/js/lumino.glyphs.js}"></script>
+<script th:src="@{/Admin/js/html5shiv.js}"></script>
+<script th:src="@{/Admin/js/respond.min.js}"></script>
+</body>
+</html>

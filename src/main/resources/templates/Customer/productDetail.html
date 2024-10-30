@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quỹ Nâng Bước Tuổi Thơ </title>
+    <th:block th:replace="layout::link-css-customer"></th:block>
+    <style>
+        .product-detail {
+            padding: 20px;
+        }
+        .product-detail .product-image {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .product-detail img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .product-detail h1 {
+            font-size: 32px;
+            margin-top: 20px;
+            color: #333;
+        }
+        .product-detail h2 {
+            font-size: 24px;
+            color: #007bff;
+            margin-top: 10px;
+        }
+        .product-detail p {
+            font-size: 16px;
+            color: #555;
+            margin-top: 20px;
+        }
+        .product-detail .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        .related-products {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #ddd;
+        }
+        .related-products h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .related-products .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            transition: box-shadow 0.3s;
+        }
+        .related-products .product-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .related-products img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .related-products .product-title {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #333;
+        }
+        .related-products .product-price {
+            color: #007bff;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+        .related-products .btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .reviews {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #ddd;
+        }
+        .review-form {
+            margin-bottom: 40px;
+        }
+        .review-form .form-group {
+            margin-bottom: 15px;
+        }
+        .review {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .review .username {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .review .rating {
+            color: #ffdd00;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .review .comment {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .star-rating {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+        .star-rating .fa {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .star-rating .fa.checked {
+            color: #ffdd00;
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <th:block th:replace="layout::header-customer"></th:block>
+
+    <section class="product-detail container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product-image">
+                    <img th:src="@{/Customer/img/{img1}(img1=${product.img1})}" alt="Product Image">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h1 th:text="${product.title}"></h1>
+                <h2 th:text="'$' + ${product.price}"></h2>
+                <p th:text="${product.detail}"></p>
+                <form th:action="@{/cart/add}" method="post">
+                    <input type="hidden" name="productId" th:value="${product.id}" />
+                    <input type="hidden" name="quantity" value="1" />
+                    <button type="submit" class="btn btn-primary">Quyên góp</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-products container">
+        <h2>Các Gói Tài Trợ</h2>
+        <div class="row">
+            <div th:each="relatedProduct : ${relatedProducts}" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="product-card">
+                    <img th:src="@{/Admin/img/{img1}(img1=${relatedProduct.img1})}" alt="Product Image">
+                    <h4 th:text="${relatedProduct.title}" class="product-title"></h4>
+                    <h5 th:text="'$' + ${relatedProduct.price}" class="product-price"></h5>
+                    <a th:href="@{/product/detail/{id}(id=${relatedProduct.id})}" class="btn btn-secondary">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews container">
+        <h2>Góc Tri Ân</h2>
+        <div class="review-form">
+            <form th:action="@{/product/review}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}" />
+                <div class="form-group">
+                    <label for="username" style="font-size: 20px">Tên của bạn: <span th:text="${currentUser.username}"></span></label>
+                    <input type="hidden" id="username" name="username" th:value="${currentUser.username}" />
+                </div>
+                <div class="form-group">
+                    <label for="rating" style="font-size: 20px">Đánh giá</label>
+                    <div class="star-rating">
+                        <span class="fa fa-star" data-rating="1"></span>
+                        <span class="fa fa-star" data-rating="2"></span>
+                        <span class="fa fa-star" data-rating="3"></span>
+                        <span class="fa fa-star" data-rating="4"></span>
+                        <span class="fa fa-star" data-rating="5"></span>
+                        <input type="hidden" id="rating" name="rating" value="0" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment" style="font-size: 20px">Nhận xét</label>
+                    <textarea id="comment" name="comment" class="form-control" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+            </form>
+        </div>
+
+        <!-- Display existing reviews -->
+        <div id="reviewsContainer">
+            <div th:each="review : ${reviews}" class="review">
+                <div class="username" th:text="${review.user.username}"></div>
+                <div class="rating">
+                    <span class="fa fa-star" th:each="i : ${#numbers.sequence(1, 5)}"
+                          th:classappend="${i <= review.rating ? 'checked' : ''}"></span>
+                </div>
+                <div class="comment" th:text="${review.comment}"></div>
+            </div>
+        </div>
+    </section>
+
+    <th:block th:replace="layout::footer-customer"></th:block>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var stars = document.querySelectorAll('.star-rating .fa');
+        var ratingInput = document.getElementById('rating');
+
+        stars.forEach(function(star, index) {
+            star.addEventListener('click', function() {
+                var rating = index + 1;
+                ratingInput.value = rating;
+
+                stars.forEach(function(s, i) {
+                    s.classList.toggle('checked', i < rating);
+                });
+            });
+        });
+    });
+</script>
+
+<script src="Customer/js/jq.js"></script>
+<script src="Customer/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <th:block th:replace="layout::link-css-customer"></th:block>
+    <link rel="stylesheet" href="Customer/css/checkout.css">
+    <style>
+        .checkout__heading {
+            font-size: 2rem;
+            font-weight: bold;
+            color: red;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .form-label {
+            font-size: 1.25rem;
+        }
+        .form-control {
+            font-size: 1.25rem;
+        }
+        .btn-submit-order {
+            background-color: #28a745;
+            color: white;
+            font-size: 1.25rem;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+        }
+        .btn-submit-order:hover {
+            background-color: #218838;
+        }
+        .total-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+        .table-bordered th,
+        .table-bordered td {
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+
+<th:block th:replace="layout::header-customer"></th:block>
+
+<button onclick="topFunction()" id="myBtn-scroll" title="Go to top"><i class="fas fa-chevron-down"></i></button>
+
+<section class="checkout">
+    <div class="container">
+        <article class="row cart__head pc">
+            <div class="col-12">
+                <h2 class="checkout__heading">THÔNG TIN THANH TOÁN</h2>
+            </div>
+        </article>
+
+        <article class="row cart__body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form th:action="@{/order/submit}" method="post">
+                            <!-- Hiển thị thông báo lỗi nếu có -->
+                            <p th:if="${error}" class="alert alert-danger" role="alert">
+                                Thông báo: <span th:text="${error}"></span>
+                            </p>
+
+                            <!-- Hiển thị danh sách sản phẩm trong giỏ hàng -->
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                <tr>
+                                    <th>Ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item : ${cartItems}">
+                                    <td>
+                                        <img th:src="@{'/Admin/img/' + ${item.product.img1}}" alt="Product Image" width="50" height="50">
+                                    </td>
+                                    <td th:text="${item.product.title}"></td>
+                                    <td th:text="${item.product.price}"></td>
+                                    <td th:text="${item.quantity}"></td>
+                                    <td th:text="${item.product.price * item.quantity}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Hiển thị tổng cộng giá tiền -->
+                            <div class="total-price">
+                                Tổng cộng: <strong th:text="${totalPrice} + ' VND'"></strong>
+                            </div>
+
+                            <!-- Các trường thông tin khách hàng -->
+                            <div class="mb-3">
+                                <label for="customerName" class="form-label">Tên của bạn:</label>
+                                <input type="text" id="customerName" name="customerName" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="shippingAddress" class="form-label">Địa chỉ giao hàng:</label>
+                                <input type="text" id="shippingAddress" name="shippingAddress" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phoneNumber" class="form-label">Số điện thoại:</label>
+                                <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="notes" class="form-label">Ghi chú:</label>
+                                <textarea id="notes" name="notes" class="form-control"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="paymentMethod" class="form-label">Phương thức thanh toán:</label>
+                                <select id="paymentMethod" name="paymentMethod" class="form-control">
+                                    <option value="Credit Card">Credit Card</option>
+                                    <option value="PayPal">PayPal</option>
+                                    <option value="Cash on Delivery">Cash on Delivery</option>
+                                    <option value="VNPay">VNPay</option>
+                                </select>
+                            </div>
+
+                            <!-- Nút Submit Order -->
+                            <button type="submit" class="btn-submit-order">Submit Order</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- footer -->
+<script>
+    document.getElementById('checkoutForm').addEventListener('submit', function(event) {
+       var paymentMethod = document.getElementById('paymentMethod').value;
+       if (paymentMethod === 'VNPay') {
+           event.preventDefault(); // Prevent form submission
+           document.getElementById('checkoutForm').action = '/order/submit';
+           document.getElementById('checkoutForm').submit();
+       }
+   });
+</script>
+<th:block th:replace="layout::footer-customer"></th:block>
+<script src="js/jq.js"></script>
+</body>
+</html>

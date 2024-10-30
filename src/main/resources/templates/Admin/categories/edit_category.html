@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--	<title>EduBook Chỉnh sửa danh mục</title>-->
+	<title>Chỉnh sủa phân loại chiến dịch</title>
+
+	<th:block th:replace="layout_admin::link-css-admin"></th:block>
+
+
+</head>
+
+<body>
+
+
+<th:block th:replace="layout_admin::header-admin"></th:block>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+	<div class="row">
+		<ol class="breadcrumb">
+			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+<!--			<li class="active">Chỉnh sửa danh mục</li>-->
+			<li class="active">Chỉnh sửa phân loại chiến dịch</li>
+		</ol>
+	</div><!--/.row-->
+
+	<div class="row">
+		<div class="col-lg-12">
+<!--			<h1 class="page-header">Chỉnh sửa danh mục</h1>-->
+			<h1 class="page-header">Chỉnh sửa phân loại chiến dịch</h1>
+		</div>
+	</div><!--/.row-->
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="col-md-8">
+						<form th:action="@{/Admin/categories/edit_category}" th:object="${category}" method="post" class="needs-validation" novalidate>
+							<input type="hidden" th:field="*{id}"> <!-- Thêm input ẩn để chứa ID của danh mục -->
+							<div class="mb-3">
+<!--								<label for="name" class="form-label">Category Name:</label>-->
+								<label for="name" class="form-label">Tên phân loại chiến dịch:</label>
+								<input type="text" th:field="*{name}" class="form-control" id="name" required>
+								<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Valid name is required.</div>
+							</div>
+							</br>
+<!--							<button type="submit" class="btn btn-primary">Update</button>-->
+							<button type="submit" class="btn btn-primary">Cập nhật</button>
+<!--							<a th:href="@{/Admin/categories/category}" class="btn btn-link">Cancel</a> &lt;!&ndash; Chuyển hướng về trang danh sách danh mục &ndash;&gt;-->
+							<a th:href="@{/Admin/categories/category}" class="btn btn-link">Hủy</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!--/.row-->
+</div>	<!--/.main-->
+
+<script src="/Admin/js/jquery-1.11.1.min.js"></script>
+<script src="/Admin/js/bootstrap.min.js"></script>
+</body>
+</html>
